@@ -3,6 +3,7 @@ package dhbw.fowler1.videostore;
 public class Rental {
     private Movie _movie;
     private int _daysRented;
+
     double getCharge() {
         double result = 0;
         switch (getMovie().getPriceCode()) {
@@ -36,4 +37,13 @@ public class Rental {
     public int getDaysRented() {
         return _daysRented;
     }
+
+    public int getFrequentRenterPoints(){
+        int frequentRenterPoints = 1;
+        if ((getMovie().getPriceCode() == Movie.NEW_RELEASE) &&
+                getDaysRented() > 1)
+            frequentRenterPoints ++;
+        return frequentRenterPoints;
+    }
+
 }
