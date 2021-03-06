@@ -2,23 +2,18 @@ package dhbw.fowler1.videostore;
 
 import java.util.Enumeration;
 
-public class Statement {
+public abstract class Statement {
     public String value(Customer aCustomer) {
         Enumeration rentals = aCustomer.getRentals();
         String result = headerString(aCustomer);
         while (rentals.hasMoreElements()) {
             Rental each = (Rental) rentals.nextElement();
-            result += "\t" + each.getMovie().getTitle()+ "\t" +
-                    String.valueOf(each.getCharge()) + "\n";
+            result += eachRentalString(each);
         }
-        result += "Amount owed is " +
-                String.valueOf(aCustomer.getTotalCharge()) + "\n";
-        result += "You earned " +
-                String.valueOf(aCustomer.getTotalFrequentRenterPoints()) +
-                " frequent renter points";
+        result += footerString(aCustomer);
         return result;
     }
-    String headerString(Customer aCustomer) {
-        return "Rental Record for " + aCustomer.getName() + "\n";
-    }
+    abstract String headerString(Customer aCustomer);
+    abstract String eachRentalString (Rental aRental);
+    abstract String footerString (Customer aCustomer);
 }
